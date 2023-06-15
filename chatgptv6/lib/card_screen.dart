@@ -8,9 +8,10 @@ import 'package:flutter/material.dart';
 
 class CardScreen extends StatefulWidget {
 
-  const   CardScreen({Key? key, required this.aplhabet ,required this.queueWords}) : super(key: key);
+  const CardScreen({Key? key, required this.aplhabet ,required this.queueWords,required this.ttWords}) : super(key: key);
   final String aplhabet;
   // final List<Word> listWords;
+  final int ttWords;
   final Queue<Word> queueWords;
   @override
 
@@ -21,9 +22,9 @@ class _CardScreenState extends State<CardScreen> {
   int index = 0;
 
   bool answer = false;
-  int ttWords = 0;
+
   int doneWords = 0;
-  
+
   // String alphabet = "";
   // List<Word> listWords = [];
   // print(widget.list.word);
@@ -155,12 +156,14 @@ class _CardScreenState extends State<CardScreen> {
                   ),
             ),
           ),
-          ElevatedButton(onPressed: ()async{
-            await FirebaseAuth.instance.signOut();
-            // String uid = FirebaseAuth.instance.currentUser!.uid.toString();
-            // print("UID : ${uid}");
-
-          }, child: Text('LOG OUT'))
+          Container(
+            child: Row(
+              children: [
+                Text("Words Learned : ${widget.queueWords.length.toInt()}"),
+                Text('Total Words : ${widget.ttWords}'),
+              ],
+            ),
+          )
         ],
       ),
     );

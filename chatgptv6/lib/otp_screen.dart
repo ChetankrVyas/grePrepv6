@@ -13,6 +13,35 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  List<int> totalArray = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ];
+  Map<String, int> totalMap = new Map<String, int>();
   List<String> alpha = [
     'a',
     'b',
@@ -98,6 +127,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   await FirebaseAuth.instance.signInWithCredential(credential);
                   String uid =
                       FirebaseAuth.instance.currentUser!.uid.toString();
+                  // String uid = "yrt62k4tViW9aJ3cxpbv3jgMdg83";
                   bool userCheck = await findUserExist(uid);
 
                   if (!userCheck) {
@@ -106,22 +136,41 @@ class _OtpScreenState extends State<OtpScreen> {
                         .doc(uid)
                         .set({
                       "uid": uid,
+                      "total": totalMap,
                     });
+                    int ind = 0;
                     for (String char in alpha) {
+                      // int cnt = 0;
                       FirebaseFirestore.instance
                           .collection(char)
                           .get()
                           .then((QuerySnapshot snapshot) {
+                        int cnt = snapshot.docs.length;
+                        totalMap[char] = cnt;
+                        print("count: ${totalMap[char]}");
+                        print("Ind : $char");
+                        ind++;
+                        FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(uid)
+                            .set({
+                          "total": totalMap,
+                        }, SetOptions(merge: true));
+
                         snapshot.docs.forEach((doc) {
-                          final userRef = FirebaseFirestore.instance
-                              .collection("usersData");
-                          userRef.doc(uid).collection(char).add({
+                          FirebaseFirestore.instance
+                              .collection("usersData")
+                              .doc(uid)
+                              .collection(char)
+                              .add({
                             "word": doc['word'],
                             "meaning": doc['meaning'],
-                            "example": doc['example',
+                            "example": doc['example'],
                           });
                         });
                       });
+
+                      // print(cnt);
                     }
                   }
                   Navigator.pushAndRemoveUntil(

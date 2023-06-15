@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 import 'package:http/http.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,19 +22,22 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
   // List<Word> listWords = [];
   Queue<Word> queueWords = new Queue<Word>();
+  int ttWords = 0;
   // String uid = "BtRS06qEiBedlPlGP8VzYOBa5Tq2";
 
   Future<int> getWords(String alphabet) async{
     // String uid = FirebaseAuth.instance.currentUser!.uid.toString();
     ///
+    queueWords = new Queue<Word>();
     String uid = "yrt62k4tViW9aJ3cxpbv3jgMdg83";
     await FirebaseFirestore.instance.collection("usersData").doc(uid).collection(alphabet).get().then((QuerySnapshot snapshot) {
       snapshot.docs.forEach((doc) {
-        print('he');
+        // print('he');
 
         queueWords.add(Word(word: doc['word'], meaning: doc['meaning'], example: doc['example'],id: doc.id.toString()));
       });
     });
+    // await FirebaseFirestore.instance.collection('users')
     return 1;
   }
   Widget build(BuildContext context) {
@@ -52,8 +56,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   // print(FirebaseAuth.instance.currentUser!.uid.toString());
                   // if(await getWords(alpha[index]) == 1){
                   await getWords(alpha[index]);
+                  String uid = "yrt62k4tViW9aJ3cxpbv3jgMdg83";
+                 var document = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+                  Map<String, dynamic> ? data= document.data();
+                  ttWords = data?['total'][alpha[index]];
                   // print(queueWords.first.word);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CardScreen(aplhabet: alpha[index],queueWords : queueWords)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => CardScreen(aplhabet: alpha[index],queueWords : queueWords,ttWords: ttWords,)));
                   // };
                 },
                   child: Container(
