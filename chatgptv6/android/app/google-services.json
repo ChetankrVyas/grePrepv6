@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "971497131387",
+    "project_id": "greprepv6",
+    "storage_bucket": "greprepv6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971497131387:android:7e1579f336bc0f096741de",
+        "android_client_info": {
+          "package_name": "com.bansal.chatgptv6"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "971497131387-8o8me41a5t4a6118to5q7d1one68njdr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bansal.chatgptv6",
+            "certificate_hash": "b0a30c23ce989b7f72f74ef7859ff41c1cc42673"
+          }
+        },
+        {
+          "client_id": "971497131387-koan14kd08qipae5r87tfs4lvhnk1a00.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzt_mhvSrVt6ve98mH-ytwYCSA33dxc0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "971497131387-koan14kd08qipae5r87tfs4lvhnk1a00.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
