@@ -41,7 +41,7 @@ class _OtpScreenState extends State<OtpScreen> {
     0,
     0
   ];
-  Map<String, int> totalMap = new Map<String, int>();
+  Map<String, int> totalMap = <String, int>{};
   List<String> alpha = [
     'a',
     'b',
@@ -69,23 +69,23 @@ class _OtpScreenState extends State<OtpScreen> {
     'y',
     'z'
   ];
-  TextEditingController _otp = TextEditingController();
+  final TextEditingController _otp = TextEditingController();
   // FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<bool> findUserExist(String uid) async {
     bool ans = false;
-    print("UID:  ${uid}");
+    print("UID:  $uid");
 
     await FirebaseFirestore.instance
         .collection('users')
         .get()
         .then((QuerySnapshot snapshot) {
-      snapshot.docs.forEach((doc) {
+      for (var doc in snapshot.docs) {
         print("DOC ID : ${doc['uid']}");
         if (doc['uid'] == uid) {
           ans = true;
         }
-      });
+      }
     });
     // await FirebaseFirestore.instance.collection('users').snapshots()
     return ans;
@@ -95,7 +95,7 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('GRE prep'),
+        title: const Text('GRE prep'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -106,7 +106,7 @@ class _OtpScreenState extends State<OtpScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Container(
                 child: TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xff74235d)),
                       ),
@@ -115,7 +115,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             ElevatedButton(
@@ -157,7 +157,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           "total": totalMap,
                         }, SetOptions(merge: true));
 
-                        snapshot.docs.forEach((doc) {
+                        for (var doc in snapshot.docs) {
                           FirebaseFirestore.instance
                               .collection("usersData")
                               .doc(uid)
@@ -167,7 +167,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             "meaning": doc['meaning'],
                             "example": doc['example'],
                           });
-                        });
+                        }
                       });
 
                       // print(cnt);
@@ -175,14 +175,13 @@ class _OtpScreenState extends State<OtpScreen> {
                   }
                   Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                      MaterialPageRoute(builder: (context) => const HomeScreen()),
                       (route) => false);
                 },
                 style: ElevatedButton.styleFrom(
-                  onPrimary: Colors.white,
-                  primary: Color(0xff74235d),
+                  foregroundColor: Colors.white, backgroundColor: const Color(0xff74235d),
                 ),
-                child: Text("Verify")),
+                child: const Text("Verify")),
           ],
         ),
       ),

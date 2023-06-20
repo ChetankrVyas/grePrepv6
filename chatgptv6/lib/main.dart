@@ -1,23 +1,20 @@
-import 'dart:convert';
-
 // import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:chatgptv6/homeScreen.dart';
 import 'package:chatgptv6/loginScreen.dart';
+import 'package:chatgptv6/opening.dart';
 import 'package:chatgptv6/otp_screen.dart';
-import 'package:chatgptv6/stage_check.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
-const String chatGptApiKey = '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';
+
+const String chatGptApiKey =
+    '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';
 const String chatGptApiUrl = 'https://api.openai.com/v1/completions';
 const List<String> messages = ["zealous", "zenith"];
 FirebaseFirestore db = FirebaseFirestore.instance;
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -27,12 +24,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+      // home: const HomeScreen(),
+      initialRoute: 'home',
+      routes: {
+        'opening': (context) => const MyOpening(),
+        'phone': (context) => const LoginScreen(),
+        'otp': (context) => const OtpScreen(),
+        'home': (context) => const HomeScreen()
+      },
     );
   }
 }

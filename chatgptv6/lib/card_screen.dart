@@ -2,8 +2,6 @@ import 'dart:collection';
 
 import 'package:chatgptv6/word.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class CardScreen extends StatefulWidget {
@@ -41,10 +39,10 @@ class _CardScreenState extends State<CardScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              child: widget.queueWords.length == 0 ? Container(child: Text('Words Completed'),) : !answer
+              child: widget.queueWords.isEmpty ? Container(child: const Text('Words Completed'),) : !answer
                   ? Container(
                       height: MediaQuery.of(context).size.height*0.6,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xff74235d),
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
@@ -53,10 +51,10 @@ class _CardScreenState extends State<CardScreen> {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Spacer(),
-                            Text(widget.queueWords.first.word, style: TextStyle(color: Colors.white, fontSize: 30),),
+                            const Spacer(),
+                            Text(widget.queueWords.first.word, style: const TextStyle(color: Colors.white, fontSize: 30),),
                             /// Word
-                            Spacer(),
+                            const Spacer(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -66,7 +64,7 @@ class _CardScreenState extends State<CardScreen> {
                                         answer = !answer;
                                       });
                                     },
-                                    child: Text("See meaning")),
+                                    child: const Text("See meaning")),
                                 ElevatedButton(
                                     onPressed: () {///
                                       // String uid = FirebaseAuth.instance.currentUser!.uid.toString();
@@ -76,7 +74,7 @@ class _CardScreenState extends State<CardScreen> {
                                         widget.queueWords.removeFirst();
                                       });
                                     },
-                                    child: Text('I know this word'))
+                                    child: const Text('I know this word'))
                               ],
                             ),
                           ],
@@ -85,7 +83,7 @@ class _CardScreenState extends State<CardScreen> {
                   )
                   : Container(
                 height: MediaQuery.of(context).size.height*0.6,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xff74235d),
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
@@ -95,16 +93,16 @@ class _CardScreenState extends State<CardScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Spacer(),
+                            const Spacer(),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: RichText(text: TextSpan(
                                 text: "Word : ",
-                                style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
+                                style: const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
                                 children: [
                                   TextSpan(
-                                    text: '${widget.queueWords.first.word}',
-                                    style:TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.normal),
+                                    text: widget.queueWords.first.word,
+                                    style:const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.normal),
                                   )
                                 ]
                               )),
@@ -113,11 +111,11 @@ class _CardScreenState extends State<CardScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: RichText(text: TextSpan(
                                   text: "Meaning : ",
-                                  style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
+                                  style: const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
                                   children: [
                                     TextSpan(
-                                      text: '${widget.queueWords.first.meaning}',
-                                      style:TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.normal),
+                                      text: widget.queueWords.first.meaning,
+                                      style:const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.normal),
                                     )
                                   ]
                               )),
@@ -126,16 +124,16 @@ class _CardScreenState extends State<CardScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: RichText(text: TextSpan(
                                   text: "Example : ",
-                                  style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
+                                  style: const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
                                   children: [
                                     TextSpan(
-                                      text: '${widget.queueWords.first.example}',
-                                      style:TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.normal),
+                                      text: widget.queueWords.first.example,
+                                      style:const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.normal),
                                     )
                                   ]
                               )),
                             ),
-                          Spacer(),
+                          const Spacer(),
 
                             Center(
                               child: ElevatedButton(onPressed: (){
@@ -148,7 +146,7 @@ class _CardScreenState extends State<CardScreen> {
                                   answer = !answer;
                                 });
 
-                              }, child: Text('Next Word')),
+                              }, child: const Text('Next Word')),
                             ),
                           ],
                         ),

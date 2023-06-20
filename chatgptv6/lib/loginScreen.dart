@@ -1,4 +1,3 @@
-import 'package:chatgptv6/homeScreen.dart';
 import 'package:chatgptv6/otp_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,7 +12,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _phoneNumber = TextEditingController();
+  final TextEditingController _phoneNumber = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +27,16 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Container(
                 child: TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xff74235d)),
                       ),
                       hintText: '+91 Enter Mobile Number'),
                   controller: _phoneNumber,
                 ),
-              ),
+              ), 
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             ElevatedButton(
                 onPressed: () async {
                   await Firebase.initializeApp();
@@ -53,16 +52,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       print("Code Send");
                       LoginScreen.verifyId = verificationId;
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => OtpScreen()));
+                          MaterialPageRoute(builder: (context) => const OtpScreen()));
                     },
                     codeAutoRetrievalTimeout: (String verificationId) {},
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  onPrimary: Colors.white,
-                  primary: Color(0xff74235d),
+                  foregroundColor: Colors.white, backgroundColor: const Color(0xff74235d),
                 ),
-                child: Text("Sign In"))
+                child: const Text("Sign In"))
           ],
         ),
       ),

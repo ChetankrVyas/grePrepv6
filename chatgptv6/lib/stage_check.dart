@@ -36,6 +36,6 @@ class _StageCheckState extends State<StageCheck> {
   }
   @override
   Widget build(BuildContext context) {
-    return ans ? HomeScreen() : LoginScreen() ;
+    return ans ? const HomeScreen() : const LoginScreen() ;
   }
 }
